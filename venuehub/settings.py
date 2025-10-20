@@ -10,6 +10,26 @@ SECRET_KEY = os.getenv("SECRET_KEY","dev-secret-change-me")
 DEBUG = os.getenv("DEBUG","false").lower()=="true"
 ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS","*").split(",")]
 
+# Tell Django which HTTPS origins may POST (admin login, forms)
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.up.railway.app",
+]
+
+# If you set SITE_URL in env (recommended), trust that exact origin too
+if SITE_URL:
+    # ensure it has scheme
+    origin = SITE_URL if SITE_URL.startswith("http") else f"https://{SITE_URL}"
+    if origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(origin)
+
+# Behind Railway's proxy, ensure Django treats requests as secure
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Good practice in production
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+
 SITE_URL = os.getenv("SITE_URL","http://localhost:8000")
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL","admin@example.com")
