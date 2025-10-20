@@ -5,8 +5,5 @@
   <h1 class="display-6">Find & book local entertainment</h1>
   <p class="lead mb-0">DJs • Bands • Quiz Hosts • Karaoke • Comedians</p>
 </div>
-<div class="row g-3">
-  <div class="col-md-6"><a class="btn btn-primary w-100" href="{% url 'directory:listings' %}">Browse Listings</a></div>
-  <div class="col-md-6"><a class="btn btn-outline-primary w-100" href="{% url 'directory:post_vacancy' %}">Post a Vacancy</a></div>
-</div>
+<a class="btn btn-primary" href="{% url 'directory:listings' %}">Browse Listings</a>
 {% endblock %}
