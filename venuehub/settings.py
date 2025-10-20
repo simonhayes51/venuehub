@@ -65,10 +65,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "venuehub.urls"
 
+# Templates — include both "templates/" and "venuehub/templates/"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        # Include both a project-level "templates" dir and the "venuehub/templates" dir
         "DIRS": [
             BASE_DIR / "templates",
             BASE_DIR / "venuehub" / "templates",
@@ -80,12 +80,11 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # if you added a custom context processor for reCAPTCHA, include it here:
-                # "venuehub.context.recaptcha_keys",
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = "venuehub.wsgi.application"
 
