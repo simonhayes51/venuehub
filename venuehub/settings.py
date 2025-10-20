@@ -68,7 +68,11 @@ ROOT_URLCONF = "venuehub.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        # Include both a project-level "templates" dir and the "venuehub/templates" dir
+        "DIRS": [
+            BASE_DIR / "templates",
+            BASE_DIR / "venuehub" / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -76,6 +80,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # if you added a custom context processor for reCAPTCHA, include it here:
+                # "venuehub.context.recaptcha_keys",
             ],
         },
     },
