@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Go Premium{% endblock %}
+{% block content %}
+<h2>Go Premium</h2>
+<p class="text-muted">Premium gives you top placement and a featured badge.</p>
+<form method="post" action="{% url 'billing:create_session' %}">{% csrf_token %}
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label class="form-label">Your Listing ID</label>
+      <input class="form-control" name="listing_id" value="{{ listing_id }}" required>
+      <div class="form-text">Find this in your listing URL.</div>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label">Your email</label>
+      <input class="form-control" type="email" name="email" required>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button class="btn btn-warning w-100">Proceed to Checkout</button>
+    </div>
+  </div>
+</form>
+{% if not price_id %}
+<div class="alert alert-warning mt-3">STRIPE_PRICE_ID not configured — set it in your .env</div>
+{% endif %}
+{% endblock %}

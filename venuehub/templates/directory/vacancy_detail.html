@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ vacancy.title }} - VenueHub{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'directory:vacancies' %}">Vacancies</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ vacancy.title }}</li>
+  </ol>
+</nav>
+<h2>{{ vacancy.title }}</h2>
+<p class="text-muted">{{ vacancy.location }} · {{ vacancy.event_date|date:"j M Y" }}</p>
+<p>{{ vacancy.description|linebreaks }}</p>
+{% if vacancy.budget %}<p><strong>Budget:</strong> £{{ vacancy.budget }}</p>{% endif %}
+<p><strong>Contact:</strong> {{ vacancy.contact_email }}</p>
+
+<hr>
+<h5>Apply to this vacancy</h5>
+<p class="text-muted">Paste your listing ID to apply (found in your profile URL) or contact us if you need help.</p>
+<p class="small text-muted">Direct apply link format: /vacancies/{{ vacancy.pk }}/apply/&lt;listing_id&gt;/</p>
+{% endblock %}

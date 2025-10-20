@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Listings - VenueHub{% endblock %}
+{% block content %}
+<h2 class="mb-3">Listings</h2>
+<form class="row g-2 mb-3">
+  <div class="col-md-6"><input class="form-control" name="q" value="{{ q }}" placeholder="Search"></div>
+  <div class="col-md-4">
+    <select class="form-select" name="category">
+      <option value="">All categories</option>
+      <option value="quiz" {% if category=='quiz' %}selected{% endif %}>Quiz Host</option>
+      <option value="dj" {% if category=='dj' %}selected{% endif %}>DJ</option>
+      <option value="band" {% if category=='band' %}selected{% endif %}>Band</option>
+      <option value="comedian" {% if category=='comedian' %}selected{% endif %}>Comedian</option>
+      <option value="karaoke" {% if category=='karaoke' %}selected{% endif %}>Karaoke Host</option>
+      <option value="other" {% if category=='other' %}selected{% endif %}>Other</option>
+    </select>
+  </div>
+  <div class="col-md-2"><button class="btn btn-primary w-100" type="submit">Filter</button></div>
+</form>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+{% for l in listings %}
+  <div class="col">
+    <div class="card h-100 {% if l.is_featured %}border-warning{% endif %}">
+      {% if l.photo %}<img src="{{ l.photo.url }}" class="card-img-top" alt="{{ l.title }}">{% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ l.title }}</h5>
+        <p class="card-text small text-muted">{{ l.get_category_display }} · {{ l.location }}</p>
+        <p class="card-text">{{ l.description|truncatewords:25 }}</p>
+        {% if l.price_from %}<span class="badge bg-success">£{{ l.price_from }}+</span>{% endif %}
+        {% if l.is_featured %}<span class="badge bg-warning text-dark">Featured</span>{% endif %}
+      </div>
+      <div class="card-footer bg-transparent d-flex justify-content-between">
+        <a class="btn btn-outline-primary btn-sm" href="{% url 'directory:listing_detail' l.pk %}">View</a>
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <p>No results.</p>
+{% endfor %}
+</div>
+{% endblock %}

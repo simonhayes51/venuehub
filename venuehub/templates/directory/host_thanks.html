@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Thanks - VenueHub{% endblock %}
+{% block content %}
+<div class="alert alert-success">Thanks — your listing has been submitted for review. We'll email you once approved.</div>
+<a class="btn btn-outline-primary" href="{% url 'directory:listings' %}">Back to listings</a>
+{% endblock %}

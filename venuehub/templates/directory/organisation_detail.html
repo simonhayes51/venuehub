@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ org.name }} - VenueHub{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'directory:organisations' %}">Organisations</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ org.name }}</li>
+  </ol>
+</nav>
+<h2>{{ org.name }}</h2>
+<p class="text-muted">{{ org.city }} {{ org.region }}</p>
+{% if org.website %}<p><a href="{{ org.website }}" target="_blank" rel="noopener">Website</a></p>{% endif %}
+{% if org.contact_email %}<p><a href="mailto:{{ org.contact_email }}">Email</a></p>{% endif %}
+<h4 class="mt-4">Listings</h4>
+<ul class="list-group">
+  {% for l in items %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <a href="{% url 'directory:listing_detail' l.pk %}">{{ l.title }}</a>
+    <small class="text-muted">{{ l.get_category_display }}</small>
+  </li>
+  {% empty %}
+  <li class="list-group-item">No listings yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

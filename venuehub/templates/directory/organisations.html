@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Organisations - VenueHub{% endblock %}
+{% block content %}
+<h2 class="mb-3">Organisations</h2>
+<form class="row g-2 mb-3">
+  <div class="col-md-8"><input class="form-control" name="q" value="{{ q }}" placeholder="Search organisations"></div>
+  <div class="col-md-4"><button class="btn btn-primary w-100" type="submit">Search</button></div>
+</form>
+<ul class="list-group">
+  {% for o in organisations %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <a href="{% url 'directory:organisation_detail' o.pk %}">{{ o.name }}</a>
+    <small class="text-muted">{{ o.city }} {{ o.region }}</small>
+  </li>
+  {% empty %}
+  <li class="list-group-item">No organisations yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

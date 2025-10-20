@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Premium — Success{% endblock %}
+{% block content %}
+<div class="alert alert-success">Thanks! Your subscription is being confirmed. Premium will activate shortly.</div>
+{% if listing_id %}
+  <a class="btn btn-outline-secondary" href="{% url 'billing:manual_mark' %}?listing={{ listing_id }}">(DEBUG) Mark Premium now</a>
+  <a class="btn btn-outline-primary ms-2" href="{% url 'billing:portal' %}?listing={{ listing_id }}">Open Billing Portal</a>
+{% endif %}
+<a class="btn btn-primary ms-2" href="{% url 'directory:listings' %}">Back to Listings</a>
+{% endblock %}

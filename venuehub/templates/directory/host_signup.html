@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Host sign-up - VenueHub{% endblock %}
+{% block content %}
+<h2 class="mb-3">Host sign-up</h2>
+<p class="text-muted">Create your profile — we'll approve it before it goes live. Founding hosts may be offered Premium placement.</p>
+<form method="post" enctype="multipart/form-data" class="mt-3">{% csrf_token %}
+  {{ form.as_p }}
+  {% if RECAPTCHA_SITE_KEY %}<div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}"></div>{% endif %}
+  <button class="btn btn-primary">Submit for review</button>
+</form>
+{% endblock %}

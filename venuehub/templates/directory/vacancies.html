@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Vacancies - VenueHub{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Vacancies</h2>
+  <a class="btn btn-outline-primary" href="{% url 'directory:post_vacancy' %}">Post a vacancy</a>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-md-8"><input class="form-control" name="q" value="{{ q }}" placeholder="Search vacancies"></div>
+  <div class="col-md-4"><button class="btn btn-primary w-100" type="submit">Search</button></div>
+</form>
+<div class="list-group">
+{% for v in vacancies %}
+  <a class="list-group-item list-group-item-action" href="{% url 'directory:vacancy_detail' v.pk %}">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ v.title }}</h5>
+      <small class="text-muted">{{ v.event_date|date:"j M Y" }}</small>
+    </div>
+    <p class="mb-1">{{ v.description|truncatewords:25 }}</p>
+    <small class="text-muted">{{ v.location }} {% if v.budget %}· Budget £{{ v.budget }}{% endif %}</small>
+  </a>
+{% empty %}
+  <p class="text-muted">No vacancies yet.</p>
+{% endfor %}
+</div>
+{% endblock %}
