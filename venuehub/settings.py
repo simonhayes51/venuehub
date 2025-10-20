@@ -101,6 +101,7 @@ TEMPLATES = [
 ]
 
 
+
 WSGI_APPLICATION = "venuehub.wsgi.application"
 
 # ----------------------------------------------------
